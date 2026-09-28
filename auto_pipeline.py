@@ -34,6 +34,26 @@ def get_published_songs():
     return []
 
 
+def get_recent_visualizer_colors(limit=10):
+    """Retrieve the visualizer BGR colors used in the last N published releases."""
+    if os.path.exists(PUBLISHED_LOG):
+        with open(PUBLISHED_LOG, 'r', encoding='utf-8') as f:
+            try:
+                data = json.load(f)
+                recent = []
+                for item in data[-limit:]:
+                    meta = item.get('metadata', {})
+                    c_info = meta.get('visualizer_color')
+                    if isinstance(c_info, dict) and 'bgr' in c_info and c_info['bgr']:
+                        recent.append(tuple(c_info['bgr']))
+                    elif isinstance(c_info, (list, tuple)):
+                        recent.append(tuple(c_info))
+                return recent
+            except Exception:
+                return []
+    return []
+
+
 def mark_as_published(song_name, metadata):
     """Appends published song info to published_songs.json."""
     if os.path.exists(PUBLISHED_LOG):
@@ -65,6 +85,9 @@ def run_pipeline():
     from google_drive_fetch import get_next_unpublished_pair
 
     published = get_published_songs()
+    recent_colors = get_recent_visualizer_colors(limit=10)
+    print(f"[Pipeline] Found {len(recent_colors)} recent visualizer color history entries for 10-day anti-repetition.")
+
     pair = get_next_unpublished_pair(published)
 
     if not pair:
@@ -75,11 +98,11 @@ def run_pipeline():
     song_filename = os.path.basename(audio_path)
     print(f"\nStep 1 Complete: Audio='{song_filename}', Image='{os.path.basename(image_path)}'")
 
-    # Step 2: EDM SEO Metadata & Titles
+    # Step 2: EDM SEO Metadata & Titles (Pollinations AI + Fallback)
     print("\nSTEP 2: Generating EDM title, description, and tags...")
     from titles_descriptions_parser import get_song_metadata_by_name
 
-    metadata = get_song_metadata_by_name(song_filename, TITLES_FILE)
+    metadata = get_song_metadata_by_name(song_filename, TITLES_FILE, use_pollinations=True)
     title = metadata['title']
     description = metadata['description']
     song_name = metadata.get('song_name', song_filename)
@@ -89,15 +112,16 @@ def run_pipeline():
     print(f"  Song Display Name: {song_name}")
     print(f"  Tags: {', '.join(tags[:6])}...")
 
-    # Step 3: Render 60 FPS Video & Thumbnail
+    # Step 3: Render 60 FPS Video & Thumbnail with 10-day Anti-Repetition Color
     print("\nSTEP 3: Rendering 60 FPS EDM video with Darkening Mask & NBF Branding...")
     from process_videos import process_single_song
 
-    video_path, thumb_path = process_single_song(
+    video_path, thumb_path, color_info = process_single_song(
         image_path=image_path,
         audio_path=audio_path,
         song_filename=song_filename,
-        display_name=song_name
+        display_name=song_name,
+        recent_colors=recent_colors
     )
 
     if not video_path or not os.path.exists(video_path):
@@ -105,6 +129,7 @@ def run_pipeline():
         sys.exit(1)
 
     print(f"\nStep 3 Complete: Video created at {video_path}")
+    print(f"  Visualizer Color Chosen: {color_info.get('label')} (BGR: {color_info.get('bgr')})")
     if os.path.exists(thumb_path):
         print(f"  Thumbnail created at {thumb_path}")
 
@@ -112,10 +137,10 @@ def run_pipeline():
     print("\nSTEP 4: Uploading to YouTube & adding to official EDM Playlist...")
     from publish_youtube import upload_to_youtube
 
-    upload_result = None
-    upload_success = False
+    yt_result = None
+    yt_success = False
     try:
-        upload_result = upload_to_youtube(
+        yt_result = upload_to_youtube(
             video_path=video_path,
             title=title,
             description=description,
@@ -123,19 +148,40 @@ def run_pipeline():
             category_id='10',
             thumbnail_path=thumb_path
         )
-        upload_success = True
+        yt_success = True
     except Exception as e:
         print(f"\n[Pipeline] YouTube upload failed: {e}")
-        upload_success = False
+        yt_success = False
 
-    # Step 5: Record as published
-    print("\nSTEP 5: Logging release to published_songs.json...")
+    # Step 5: Upload to Facebook Page
+    print("\nSTEP 5: Uploading to Facebook Page (Neon Beats Factory)...")
+    from publish_facebook import upload_to_facebook_page
+
+    fb_result = None
+    fb_success = False
+    try:
+        fb_result = upload_to_facebook_page(
+            video_path=video_path,
+            title=title,
+            description=description,
+            thumb_path=thumb_path
+        )
+        fb_success = True
+    except Exception as e:
+        print(f"\n[Pipeline] Facebook upload failed: {e}")
+        fb_success = False
+
+    # Step 6: Record release in published_songs.json
+    print("\nSTEP 6: Logging release to published_songs.json...")
     mark_as_published(song_filename, {
         "title": title,
         "description": description,
         "song_index": song_index,
-        "uploaded": upload_success,
-        "youtube_result": upload_result
+        "visualizer_color": color_info,
+        "youtube_uploaded": yt_success,
+        "youtube_result": yt_result,
+        "facebook_uploaded": fb_success,
+        "facebook_result": fb_result
     })
 
     # Archive video

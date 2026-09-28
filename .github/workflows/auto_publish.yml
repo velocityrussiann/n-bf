@@ -23,9 +23,13 @@ jobs:
       YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+      FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+      POLLINATIONS_API_KEY: ${{ secrets.POLLINATIONS_API_KEY }}
+      POLLINATIONS_ENDPOINT: ${{ secrets.POLLINATIONS_ENDPOINT }}
       CHANNEL_NAME: "Neon Beats Factory"
       BG_DARKEN_FACTOR: "0.50"
-      VISUALIZER_COLOR: "cyan"
+      VISUALIZER_COLOR: "variety"
       VISUALIZER_DIAMETER: "688"
       YT_PLAYLIST_TITLE: "Neon Beats Factory | Best Electronic Dance Music & EDM Hits"
 

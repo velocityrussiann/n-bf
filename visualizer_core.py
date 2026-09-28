@@ -28,17 +28,21 @@ load_dotenv()
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
-# Color palettes (BGR)
+# Expanded EDM Neon Aesthetic Palettes (BGR)
 NEON_PALETTE = {
-    "cyan": (250, 240, 60),        # Electric Cyan / Aqua (Screenshot Default)
-    "ice_blue": (255, 225, 140),   # Frosted Sky Cyan
-    "gold": (70, 215, 255),        # Radiant Golden Fire
-    "yellow": (70, 235, 255),      # Neon Lemon
-    "pink": (210, 140, 255),       # Cyber Neon Rose
-    "magenta": (255, 60, 220),     # Electric Magenta
-    "purple": (255, 130, 180),     # Neon Violet
-    "green": (80, 255, 120),       # Toxic Lime Green
-    "white": (255, 255, 255),      # Pure Diamond White
+    "cyan": (250, 240, 60),          # Electric Cyan / Aqua (#3CF0FA)
+    "amber_gold": (10, 180, 255),    # Radiant Lantern Amber / Gold (#FFB40A)
+    "magenta": (255, 60, 220),       # Cyber Neon Magenta (#DC3CFF)
+    "electric_blue": (255, 120, 10), # Deep Cobalt / Azure Blue (#0A78FF)
+    "toxic_lime": (30, 255, 60),     # High-Voltage Lime Green (#3CFF1E)
+    "fire_orange": (10, 60, 255),    # Molten Lava Fire (#FF3C0A)
+    "neon_purple": (255, 30, 160),   # Electric Ultraviolet (#A01EFF)
+    "cyber_yellow": (30, 235, 255),  # Neon Laser Lemon (#FFE71E)
+    "hot_pink": (180, 20, 255),      # Synthwave Hot Pink (#FF14B4)
+    "frosted_sky": (255, 225, 140),  # Frosted Sky Cyan (#8CE1FF)
+    "emerald_mint": (140, 255, 30),  # Neo Mint Green (#1EFF8C)
+    "crimson_flare": (60, 20, 255),  # Crimson Neon Flare (#FF143C)
+    "white": (255, 255, 255),        # Pure Diamond White
 }
 
 
@@ -296,6 +300,75 @@ def extract_artwork_color(img_bgr, mode="auto"):
     return tuple(int(c) for c in neon_bgr)
 
 
+def color_hue_distance(bgr1, bgr2):
+    """Calculates minimal circular hue difference (0 to 90 in OpenCV 0-180 scale)."""
+    hsv1 = cv2.cvtColor(np.uint8([[bgr1]]), cv2.COLOR_BGR2HSV)[0][0]
+    hsv2 = cv2.cvtColor(np.uint8([[bgr2]]), cv2.COLOR_BGR2HSV)[0][0]
+    diff = abs(int(hsv1[0]) - int(hsv2[0]))
+    return min(diff, 180 - diff)
+
+
+def select_variety_color(img_bgr, recent_bgrs=None, min_distance_days=10):
+    """
+    Selects a vibrant visualizer color that guarantees NO repetition with the last 10 releases
+    while staying deeply harmonized with the artwork:
+    1. Extracts top dominant clusters (Dominant, Secondary Accent, Complementary Pop).
+    2. Tests candidate colors against recent_bgrs[-10:].
+    3. If there is a clash with recent colors, cycles to the next best candidate or
+       harmonious palette aesthetic so the channel grid remains diverse and fresh.
+    """
+    if recent_bgrs is None:
+        recent_bgrs = []
+
+    hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    mask = (s > 45) & (v > 40)
+    if not np.any(mask):
+        mask = (s > 25) & (v > 35)
+
+    valid_h = h[mask]
+    valid_s = s[mask]
+
+    candidates = []
+    if len(valid_s) > 0 and np.mean(valid_s) >= 30:
+        weights = valid_s.astype(np.float32) / 255.0
+        hist, bin_edges = np.histogram(valid_h, bins=18, range=(0, 180), weights=weights)
+        top_bins = np.argsort(hist)[::-1]
+
+        # Primary Dominant
+        p_hue = int((bin_edges[top_bins[0]] + bin_edges[top_bins[0] + 1]) / 2)
+        c1 = tuple(int(x) for x in cv2.cvtColor(np.uint8([[[p_hue, 245, 255]]]), cv2.COLOR_HSV2BGR)[0][0])
+        candidates.append(("artwork_dominant", c1))
+
+        # Secondary Accent (if significant)
+        if len(top_bins) > 1 and hist[top_bins[1]] > 0.05 * hist[top_bins[0]]:
+            s_hue = int((bin_edges[top_bins[1]] + bin_edges[top_bins[1] + 1]) / 2)
+            c2 = tuple(int(x) for x in cv2.cvtColor(np.uint8([[[s_hue, 245, 255]]]), cv2.COLOR_HSV2BGR)[0][0])
+            candidates.append(("artwork_accent", c2))
+
+        # Complementary Pop (180 deg opposite)
+        comp_hue = (p_hue + 90) % 180
+        c_comp = tuple(int(x) for x in cv2.cvtColor(np.uint8([[[comp_hue, 245, 255]]]), cv2.COLOR_HSV2BGR)[0][0])
+        candidates.append(("artwork_complementary", c_comp))
+
+    # Add full EDM palette candidates
+    for name, bgr in NEON_PALETTE.items():
+        candidates.append((name, bgr))
+
+    # Filter against the last 10 used colors (Hue distance >= 18 out of 180)
+    recent_window = recent_bgrs[-min_distance_days:] if recent_bgrs else []
+    for label, bgr in candidates:
+        conflict = any(color_hue_distance(bgr, rec) < 18 for rec in recent_window)
+        if not conflict:
+            print(f"[NBF Color Engine] Selected '{label}' color (BGR: {bgr}) - No clash with last {len(recent_window)} uploads.")
+            return label, bgr
+
+    # If all conflict, return first candidate
+    chosen = candidates[0]
+    return chosen[0], chosen[1]
+
+
 def generate_nbf_video(
     viz_path,
     bg_path,
@@ -303,7 +376,8 @@ def generate_nbf_video(
     output_path,
     fps=60,
     base_diameter=688,
-    color="cyan",
+    color="variety",
+    recent_colors=None,
     darken_factor=0.50,
     song_title=None,
     target_width=1920,
@@ -316,8 +390,9 @@ def generate_nbf_video(
     Renders the complete 60 FPS NBF music video with:
     1. Background darkening mask & vignette
     2. NBF branding logo on left
-    3. Beat-responsive cyan core visualizer on right
-    4. Fast raw FFmpeg pipe encoding
+    3. Beat-responsive core visualizer on right
+    4. 10-day anti-repetition color selection
+    5. Fast raw FFmpeg pipe encoding
     """
     W, H = target_width, target_height
 
@@ -327,14 +402,20 @@ def generate_nbf_video(
         raise ValueError(f"Could not load image: {bg_path}")
 
     # 2. Resolve visualizer color
+    color_label = "custom"
     if isinstance(color, str):
         c_low = color.lower().strip()
-        if c_low in ("auto", "harmonized"):
+        if c_low in ("variety", "auto", "smart", "anti_repetition"):
+            color_label, color_bgr = select_variety_color(raw_bg, recent_bgrs=recent_colors, min_distance_days=10)
+        elif c_low in ("harmonized", "dominant"):
+            color_label = "dominant"
             color_bgr = extract_artwork_color(raw_bg, mode="auto")
         elif c_low in ("complementary", "contrast"):
+            color_label = "complementary"
             color_bgr = extract_artwork_color(raw_bg, mode="complementary")
         elif c_low == "random":
             import random
+            color_label = "random"
             color_bgr = random.choice(list(NEON_PALETTE.values()))
         elif c_low.startswith("#") or (len(c_low) == 6 and all(c in "0123456789abcdef" for c in c_low)):
             hex_str = c_low.lstrip("#")
@@ -342,7 +423,9 @@ def generate_nbf_video(
             g = int(hex_str[2:4], 16)
             b = int(hex_str[4:6], 16)
             color_bgr = (b, g, r)
+            color_label = f"hex_{hex_str}"
         else:
+            color_label = c_low
             color_bgr = NEON_PALETTE.get(c_low, NEON_PALETTE["cyan"])
     else:
         color_bgr = color
@@ -351,7 +434,7 @@ def generate_nbf_video(
     print(f"  - Background: {bg_path}")
     print(f"  - Audio: {audio_path}")
     print(f"  - Darkening factor: {darken_factor} (Mask applied)")
-    print(f"  - Neon color BGR: {color_bgr} (Mode: {color})")
+    print(f"  - Neon color BGR: {color_bgr} (Label: {color_label}, Mode: {color})")
     print(f"  - Core diameter: {base_diameter}px")
 
     bh, bw = raw_bg.shape[:2]
@@ -552,9 +635,8 @@ def generate_nbf_video(
     thumb_path = output_path.replace(".mp4", "_thumb.jpg")
     if saved_thumb is not None:
         cv2.imwrite(thumb_path, saved_thumb, [cv2.IMWRITE_JPEG_QUALITY, 96])
-        print(f"[NBF Visualizer] Matching thumbnail saved: {thumb_path}")
-
-    return output_path, thumb_path
+    color_info = {"label": color_label, "bgr": list(color_bgr)}
+    return output_path, thumb_path, color_info
 
 
 if __name__ == "__main__":

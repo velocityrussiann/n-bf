@@ -20,9 +20,9 @@ VISUALIZER_DIAMETER = int(os.getenv("VISUALIZER_DIAMETER", "688"))
 SHOW_SONG_TITLE = False  # Pure branding only (NBF logo + 3D core visualizer)
 
 
-def process_single_song(image_path, audio_path, song_filename, display_name=None, force_rebuild=True, duration=None):
+def process_single_song(image_path, audio_path, song_filename, display_name=None, force_rebuild=True, duration=None, recent_colors=None):
     """
-    Renders video + matching thumbnail for a single song.
+    Renders video + matching thumbnail for a single song with 10-day anti-repetition color selection.
     """
     safe_name = os.path.splitext(song_filename)[0]
     safe_name = "".join(c for c in safe_name if c.isalnum() or c in (' ', '-', '_')).strip()
@@ -38,7 +38,7 @@ def process_single_song(image_path, audio_path, song_filename, display_name=None
 
     if os.path.exists(output_path) and not force_rebuild:
         print(f"[Processor] Skipping '{output_filename}' - already generated.")
-        return output_path, thumb_path
+        return output_path, thumb_path, {"label": "cached", "bgr": None}
 
     from visualizer_core import generate_nbf_video
 
@@ -52,7 +52,7 @@ def process_single_song(image_path, audio_path, song_filename, display_name=None
 
     title_arg = text_name if SHOW_SONG_TITLE else None
 
-    v_path, t_path = generate_nbf_video(
+    v_path, t_path, color_info = generate_nbf_video(
         viz_path=viz_path,
         bg_path=image_path,
         audio_path=audio_path,
@@ -60,12 +60,13 @@ def process_single_song(image_path, audio_path, song_filename, display_name=None
         fps=60,
         base_diameter=VISUALIZER_DIAMETER,
         color=VISUALIZER_COLOR,
+        recent_colors=recent_colors,
         darken_factor=BG_DARKEN_FACTOR,
         song_title=title_arg,
         duration=duration
     )
 
-    return v_path, t_path
+    return v_path, t_path, color_info
 
 
 if __name__ == "__main__":
