@@ -42,16 +42,22 @@ Every video and thumbnail is rendered in standard **1080P Full HD (1920x1080)** 
    - Positioned at `X ~ 74.1%`, `Y ~ 48.5%` with a base diameter of `688px`.
    - Real-time STFT sub-bass analysis (25 Hz - 130 Hz) powering **BeatPulse**: drum kicks trigger dynamic mesh diameter expansion up to +18% with neon flash bloom.
    - Fluid 60 FPS continuous phase rotation synchronized to track tempo.
-   - Electric Cyan / Aqua (`#8DFCFE`) multi-stage neon glow.
+4. **10-Day Anti-Repetition Color Engine**:
+   - Analyzes artwork in HSV space across multiple color clusters (Primary Dominant, Secondary Accent, and Complementary Opposite).
+   - Tracks the last 10 published releases in `published_songs.json`.
+   - Guaranteed: No two videos within a 10-day rolling window will ever share the same visualizer color, preventing amber/gold monotony and keeping your YouTube & Facebook video grid fresh, aesthetic, and diverse.
+   - Expanded 12-color EDM neon palette: Electric Cyan, Radiant Amber/Gold, Cyber Magenta, Cobalt Blue, Toxic Lime, Molten Lava Fire, Ultraviolet, Laser Lemon, Hot Pink, Frosted Sky, Neo Mint, Crimson Flare.
 
 ---
 
-## 🎵 Electronic Dance Music (EDM) SEO & Playlists
+## 🎵 AI Metadata, YouTube & Facebook Multi-Publishing
 
-- **Viral Title & Description Generator**: Pre-loaded with high-CTR, SEO-optimized metadata for festival drops, electro house, slap house, cyberpunk beats, and melodic EDM.
-- **YouTube Playlist Automation**: Automatically searches for the official channel playlist:
+- **Pollinations AI Integration**: Generates viral, high-CTR EDM YouTube & Facebook video titles, 3-paragraph descriptions with track chapters, audio specs, and 15+ EDM tags via `https://gen.pollinations.ai/v1/chat/completions`. Automatically falls back to local curated EDM anthens if offline.
+- **YouTube Playlist Automation**: Automatically searches or creates the official channel playlist:
   > *"Neon Beats Factory | Best Electronic Dance Music & EDM Hits"*
-  If not found, it automatically creates the playlist via YouTube Data API and inserts every published release into it.
+  and inserts every published release into it.
+- **Facebook Page Video Publisher**: Automatically uploads high-resolution 60 FPS videos with custom thumbnails directly to the official Facebook Page:
+  > **Neon Beats Factory** (Page ID: `538586562680121`) via Meta Graph API v21.0.
 
 ---
 
@@ -70,14 +76,15 @@ n-bf/
 │   └── BebasNeue-Regular.ttf
 ├── input_audio/                    # Local folder for offline test tracks
 ├── input_images/                   # Local folder for offline test backgrounds
-├── auto_pipeline.py                # Main orchestration pipeline (Fetch -> Render -> Upload -> Log)
-├── process_videos.py               # Video processing interface
-├── visualizer_core.py              # 60 FPS visualizer engine with darkening mask & NBF branding
-├── titles_descriptions_parser.py   # EDM SEO title & description parser + fallback generator
+├── auto_pipeline.py                # Main orchestration pipeline (Fetch -> Render -> Multi-Publish -> Log)
+├── process_videos.py               # Video processing interface with anti-repetition tracking
+├── visualizer_core.py              # 60 FPS visualizer engine with darkening mask, branding & 10-day color logic
+├── titles_descriptions_parser.py   # Pollinations AI metadata generator + local EDM fallback
 ├── titles_descriptions.txt         # Pre-configured viral EDM titles and descriptions
-├── google_drive_fetch.py           # Google Drive downloader with local fallback
+├── google_drive_fetch.py           # Google Drive downloader with local fallback & repost recycling
 ├── publish_youtube.py              # YouTube uploader with automatic playlist insertion
-├── published_songs.json            # Deployment ledger preventing duplicate uploads
+├── publish_facebook.py             # Facebook Page video publisher (Meta Graph API v21.0)
+├── published_songs.json            # Deployment ledger tracking published songs & color history
 ├── Visualizer_Core_Only.viz        # 3D topographic Avee visualizer core
 ├── requirements.txt                # Python dependencies
 ├── .env.example                    # Configuration template
@@ -104,12 +111,11 @@ You can test video and thumbnail generation on any audio + image pair:
 
 ```bash
 python visualizer_core.py \
-  --image "C:\Users\kreg9\Downloads\Istanbul_skyline_at_night_20260928054559.jpg" \
+  --image "C:\Users\kreg9\Downloads\Amsterdam_canals_at_night_20260929002216.jpg" \
   --audio "D:\NBF\AUDIO\Infinity New Mix.mp3" \
-  --output "Processed_Videos/Infinity_Preview.mp4" \
-  --title "Infinity (New Mix)" \
+  --output "Processed_Videos/Amsterdam_Preview.mp4" \
   --darken 0.50 \
-  --color cyan
+  --color variety
 ```
 
 ### 3. Run the Full Automation Pipeline
@@ -118,7 +124,7 @@ python visualizer_core.py \
 python auto_pipeline.py
 ```
 
-If Google Drive credentials are not supplied, the pipeline automatically checks local folders (`input_audio/` and `input_images/` or `D:\NBF\AUDIO` and `D:\NBF\Cover Art`).
+Publishes automatically to both YouTube (with playlist insertion) and Facebook Page (`neonbeatsfactory`).
 
 ---
 
@@ -126,18 +132,20 @@ If Google Drive credentials are not supplied, the pipeline automatically checks 
 
 The repository is configured to publish automatically once per day via `.github/workflows/auto_publish.yml` using GitHub Secrets.
 
-### Required Secrets
-
-Go to **Repository Settings → Secrets and variables → Actions** and add:
+### Configured Secrets
 
 | Secret Name | Description |
 |---|---|
-| `GOOGLE_DRIVE_AUDIO_FOLDER_ID` | Google Drive folder ID containing your EDM audio files |
-| `GOOGLE_DRIVE_IMAGE_FOLDER_ID` | Google Drive folder ID containing high-res background art |
-| `GOOGLE_SERVICE_ACCOUNT_KEY` | Service Account JSON string with read access to the folders |
 | `YT_CLIENT_ID` | Google Cloud Console OAuth 2.0 Client ID |
 | `YT_CLIENT_SECRET` | Google Cloud Console OAuth 2.0 Client Secret |
 | `YT_REFRESH_TOKEN` | OAuth 2.0 Refresh Token with YouTube Data API v3 scope |
+| `FB_PAGE_ID` | Facebook Page ID (`538586562680121`) |
+| `FB_PAGE_ACCESS_TOKEN` | Facebook Page Access Token for `neonbeatsfactory` |
+| `POLLINATIONS_API_KEY` | Pollinations AI API key |
+| `POLLINATIONS_ENDPOINT` | `https://gen.pollinations.ai/v1/chat/completions` |
+| `GOOGLE_DRIVE_AUDIO_FOLDER_ID` | Google Drive folder ID containing your EDM audio files |
+| `GOOGLE_DRIVE_IMAGE_FOLDER_ID` | Google Drive folder ID containing high-res background art |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Service Account JSON string with read access to the folders |
 
 ---
 
