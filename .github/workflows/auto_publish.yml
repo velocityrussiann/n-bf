@@ -1,4 +1,4 @@
-name: Auto Publish EDM Songs to YouTube - Neon Beats Factory (NBF)
+name: Build & Sync
 
 on:
   schedule:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  publish-edm-song:
+  build-and-sync:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     permissions:
@@ -84,9 +84,9 @@ jobs:
           fi
           echo "All secrets verified."
 
-      - name: Run NBF Automation Pipeline
+      - name: Run Pipeline
         run: |
-          echo "Launching Neon Beats Factory (NBF) pipeline..."
+          echo "Launching pipeline..."
           python auto_pipeline.py
           exit_code=$?
           if [ $exit_code -ne 0 ]; then
