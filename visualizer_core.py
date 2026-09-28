@@ -246,10 +246,12 @@ def compute_audio_rhythm(mono_audio, sr, fps=60):
 def extract_artwork_color(img_bgr, mode="auto"):
     """
     Intelligently extracts visualizer neon glow color from the background artwork:
-    - 'auto': Identifies the dominant vibrant hue and boosts saturation & brightness
-              into an intense EDM neon glow matching the artwork's atmosphere.
+    - 'auto': Identifies the dominant vibrant hue, weighted by saturation, and boosts
+              it into an intense EDM neon glow matching the artwork's atmosphere.
     - 'complementary': Rotates the dominant hue by 180 degrees on the color wheel
               to guarantee maximum contrast and pop against any background.
+    - If the artwork has low saturation / no dominant hue, falls back to a cool neon
+      palette color so the visualizer always looks vibrant and striking.
     """
     hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(hsv)
@@ -257,14 +259,31 @@ def extract_artwork_color(img_bgr, mode="auto"):
     # Filter for vibrant, non-muddy pixels (sufficient saturation and brightness)
     mask = (s > 60) & (v > 50)
     if not np.any(mask):
+        mask = (s > 35) & (v > 40)
+    if not np.any(mask):
         mask = v > 40
 
     valid_h = h[mask]
-    if len(valid_h) == 0:
-        return (250, 240, 60)  # Fallback to Electric Cyan
+    valid_s = s[mask]
 
-    # Compute histogram across 18 hue bins (0-180 in OpenCV)
-    hist, bin_edges = np.histogram(valid_h, bins=18, range=(0, 180))
+    # If the image is largely monochromatic / grayscale (very low saturation throughout)
+    # pick a cool vibrant signature neon color so the visualizer always looks awesome!
+    if len(valid_s) == 0 or np.mean(valid_s) < 30:
+        cool_neon_fallbacks = [
+            (250, 240, 60),   # Electric Cyan
+            (70, 215, 255),   # Radiant Gold
+            (210, 140, 255),  # Cyber Rose Pink
+            (255, 60, 220),   # Neon Magenta
+            (80, 255, 120),   # Toxic Lime
+            (255, 130, 180),  # Electric Violet
+            (255, 225, 140),  # Frosted Sky
+        ]
+        idx = int(np.sum(img_bgr[:10, :10])) % len(cool_neon_fallbacks)
+        return cool_neon_fallbacks[idx]
+
+    # Compute histogram weighted by pixel saturation so vivid elements take priority
+    weights = valid_s.astype(np.float32) / 255.0
+    hist, bin_edges = np.histogram(valid_h, bins=18, range=(0, 180), weights=weights)
     dom_bin = np.argmax(hist)
     dom_hue = int((bin_edges[dom_bin] + bin_edges[dom_bin + 1]) / 2)
 

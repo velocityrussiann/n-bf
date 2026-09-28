@@ -21,6 +21,7 @@ temp/
 *_sync.wav
 *_thumb.jpg
 *_thumb.png
+*_preview.jpg
 
 # Keep empty input folders
 !input_audio/.gitkeep
