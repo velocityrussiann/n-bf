@@ -243,6 +243,40 @@ def compute_audio_rhythm(mono_audio, sr, fps=60):
     return norm_bass, norm_energy
 
 
+def extract_artwork_color(img_bgr, mode="auto"):
+    """
+    Intelligently extracts visualizer neon glow color from the background artwork:
+    - 'auto': Identifies the dominant vibrant hue and boosts saturation & brightness
+              into an intense EDM neon glow matching the artwork's atmosphere.
+    - 'complementary': Rotates the dominant hue by 180 degrees on the color wheel
+              to guarantee maximum contrast and pop against any background.
+    """
+    hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    # Filter for vibrant, non-muddy pixels (sufficient saturation and brightness)
+    mask = (s > 60) & (v > 50)
+    if not np.any(mask):
+        mask = v > 40
+
+    valid_h = h[mask]
+    if len(valid_h) == 0:
+        return (250, 240, 60)  # Fallback to Electric Cyan
+
+    # Compute histogram across 18 hue bins (0-180 in OpenCV)
+    hist, bin_edges = np.histogram(valid_h, bins=18, range=(0, 180))
+    dom_bin = np.argmax(hist)
+    dom_hue = int((bin_edges[dom_bin] + bin_edges[dom_bin + 1]) / 2)
+
+    if mode == "complementary":
+        dom_hue = (dom_hue + 90) % 180
+
+    # Luminous neon: high saturation (245/255), maximum value (255/255)
+    neon_hsv = np.uint8([[[dom_hue, 245, 255]]])
+    neon_bgr = cv2.cvtColor(neon_hsv, cv2.COLOR_HSV2BGR)[0][0]
+    return tuple(int(c) for c in neon_bgr)
+
+
 def generate_nbf_video(
     viz_path,
     bg_path,
@@ -268,10 +302,29 @@ def generate_nbf_video(
     """
     W, H = target_width, target_height
 
-    # 1. Resolve visualizer color
+    # 1. Load background image first so dynamic color extraction can analyze it
+    raw_bg = cv2.imread(bg_path)
+    if raw_bg is None:
+        raise ValueError(f"Could not load image: {bg_path}")
+
+    # 2. Resolve visualizer color
     if isinstance(color, str):
         c_low = color.lower().strip()
-        color_bgr = NEON_PALETTE.get(c_low, NEON_PALETTE["cyan"])
+        if c_low in ("auto", "harmonized"):
+            color_bgr = extract_artwork_color(raw_bg, mode="auto")
+        elif c_low in ("complementary", "contrast"):
+            color_bgr = extract_artwork_color(raw_bg, mode="complementary")
+        elif c_low == "random":
+            import random
+            color_bgr = random.choice(list(NEON_PALETTE.values()))
+        elif c_low.startswith("#") or (len(c_low) == 6 and all(c in "0123456789abcdef" for c in c_low)):
+            hex_str = c_low.lstrip("#")
+            r = int(hex_str[0:2], 16)
+            g = int(hex_str[2:4], 16)
+            b = int(hex_str[4:6], 16)
+            color_bgr = (b, g, r)
+        else:
+            color_bgr = NEON_PALETTE.get(c_low, NEON_PALETTE["cyan"])
     else:
         color_bgr = color
 
@@ -279,13 +332,8 @@ def generate_nbf_video(
     print(f"  - Background: {bg_path}")
     print(f"  - Audio: {audio_path}")
     print(f"  - Darkening factor: {darken_factor} (Mask applied)")
-    print(f"  - Neon color BGR: {color_bgr}")
+    print(f"  - Neon color BGR: {color_bgr} (Mode: {color})")
     print(f"  - Core diameter: {base_diameter}px")
-
-    # 2. Load & crop background image to target aspect ratio
-    raw_bg = cv2.imread(bg_path)
-    if raw_bg is None:
-        raise ValueError(f"Could not load image: {bg_path}")
 
     bh, bw = raw_bg.shape[:2]
     target_ratio = W / float(H)

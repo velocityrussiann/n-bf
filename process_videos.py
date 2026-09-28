@@ -16,6 +16,7 @@ if sys.platform == 'win32':
 LOCAL_OUTPUT_DIR = os.getenv("LOCAL_OUTPUT_DIR", "Processed_Videos")
 BG_DARKEN_FACTOR = float(os.getenv("BG_DARKEN_FACTOR", "0.50"))
 VISUALIZER_COLOR = os.getenv("VISUALIZER_COLOR", "cyan")
+VISUALIZER_DIAMETER = int(os.getenv("VISUALIZER_DIAMETER", "688"))
 SHOW_SONG_TITLE = False  # Pure branding only (NBF logo + 3D core visualizer)
 
 
