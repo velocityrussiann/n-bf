@@ -111,31 +111,33 @@ def download_drive_file(service, file_info, local_path):
 def get_local_fallback_pair(published):
     """
     Checks local directories if Google Drive is not configured.
-    Checks:
-    1. input_audio / input_images
-    2. D:\\NBF\\AUDIO / D:\\NBF\\Cover Art
-    3. Audio / Images
+    Scans candidate directories and picks the first one containing files.
     """
     audio_dirs = ["input_audio", r"D:\NBF\AUDIO", "Audio"]
     image_dirs = ["input_images", r"D:\NBF\Cover Art", "Images", r"C:\Users\kreg9\Downloads"]
 
-    found_audio_dir = next((d for d in audio_dirs if os.path.exists(d)), None)
-    found_image_dir = next((d for d in image_dirs if os.path.exists(d)), None)
-
-    if not found_audio_dir or not found_image_dir:
-        return None
-
     audio_exts = ('.mp3', '.wav', '.flac', '.m4a')
     image_exts = ('.jpg', '.jpeg', '.png', '.webp')
 
-    audio_files = sorted([
-        os.path.join(found_audio_dir, f) for f in os.listdir(found_audio_dir)
-        if f.lower().endswith(audio_exts)
-    ])
-    image_files = sorted([
-        os.path.join(found_image_dir, f) for f in os.listdir(found_image_dir)
-        if f.lower().endswith(image_exts)
-    ])
+    found_audio_dir = None
+    audio_files = []
+    for d in audio_dirs:
+        if os.path.exists(d):
+            files = sorted([os.path.join(d, f) for f in os.listdir(d) if f.lower().endswith(audio_exts)])
+            if files:
+                found_audio_dir = d
+                audio_files = files
+                break
+
+    found_image_dir = None
+    image_files = []
+    for d in image_dirs:
+        if os.path.exists(d):
+            files = sorted([os.path.join(d, f) for f in os.listdir(d) if f.lower().endswith(image_exts)])
+            if files:
+                found_image_dir = d
+                image_files = files
+                break
 
     if not audio_files or not image_files:
         return None
@@ -149,14 +151,14 @@ def get_local_fallback_pair(published):
             continue
         # Pair with image (cycle if fewer images)
         img_path = image_files[i % len(image_files)]
-        print(f"[Local Fallback] Selected Pair #{i+1}: Audio='{sname}' Image='{os.path.basename(img_path)}'")
+        print(f"[Local Fallback] Selected Pair #{i+1}: Audio='{sname}' ({found_audio_dir}), Image='{os.path.basename(img_path)}' ({found_image_dir})")
         return a_path, img_path, i + 1
 
     # If all published and repost enabled
     if ALLOW_REPOST and audio_files:
         rand_audio = random.choice(audio_files)
         rand_img = random.choice(image_files)
-        print(f"[Local Fallback Repost] Selected: Audio='{os.path.basename(rand_audio)}' Image='{os.path.basename(rand_img)}'")
+        print(f"[Local Fallback Repost] Selected: Audio='{os.path.basename(rand_audio)}', Image='{os.path.basename(rand_img)}'")
         return rand_audio, rand_img, 1
 
     return None
