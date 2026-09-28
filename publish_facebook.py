@@ -2,7 +2,7 @@
 Facebook Page Video Publisher - Neon Beats Factory (NBF)
 Publishes 60 FPS EDM videos and thumbnails to the official Facebook Page:
 https://www.facebook.com/neonbeatsfactory (ID: 538586562680121)
-Using Meta Graph API v21.0.
+Using Meta Graph API v21.0 Resumable / Chunked Upload.
 """
 
 import os
@@ -22,7 +22,6 @@ def get_fb_credentials():
     page_token = (os.getenv("FB_PAGE_ACCESS_TOKEN") or "").strip()
 
     if not page_id or not page_token:
-        # Check if we have META_LONG_LIVED_ACCESS_TOKEN to auto-fetch page token
         meta_token = (os.getenv("META_LONG_LIVED_ACCESS_TOKEN") or "").strip()
         if meta_token and not page_token:
             print("[Facebook Auth] Resolving page token from META_LONG_LIVED_ACCESS_TOKEN...")
@@ -30,15 +29,18 @@ def get_fb_credentials():
                 url = "https://graph.facebook.com/v21.0/me/accounts"
                 params = {"access_token": meta_token, "limit": 100}
                 while url:
-                    r = requests.get(url, params=params, timeout=15)
-                    for p in r.json().get("data", []):
-                        if p.get("id") == "538586562680121" or "neon" in p.get("name", "").lower():
-                            page_id = p.get("id")
+                    r = requests.get(url, params=params, timeout=20)
+                    res = r.json()
+                    for p in res.get("data", []):
+                        p_name = p.get("name", "")
+                        p_id = p.get("id", "")
+                        if p_id == "538586562680121" or "neon" in p_name.lower():
+                            page_id = p_id
                             page_token = p.get("access_token")
                             break
                     if page_token:
                         break
-                    url = r.json().get("paging", {}).get("next")
+                    url = res.get("paging", {}).get("next")
                     params = None
             except Exception as e:
                 print(f"[Facebook Auth] Warning: Could not resolve page token: {e}")
@@ -52,14 +54,18 @@ def upload_to_facebook_page(
     description,
     thumb_path=None,
     page_id=None,
-    page_token=None
+    page_token=None,
+    default_chunk_size=10 * 1024 * 1024  # 10 MB chunks
 ):
     """
-    Uploads a video to the Neon Beats Factory Facebook Page via Graph API.
+    Uploads a video to the Neon Beats Factory Facebook Page via Graph API Resumable Upload.
+    Handles large 60 FPS video files (>300 MB) with chunking, retries, and thumbnail setting.
     Returns dict with 'id' and 'url' of the published video.
     """
     if not os.path.exists(video_path):
         raise FileNotFoundError(f"Video file not found at: {video_path}")
+
+    file_size = os.path.getsize(video_path)
 
     if not page_id or not page_token:
         p_id, p_token = get_fb_credentials()
@@ -77,60 +83,141 @@ def upload_to_facebook_page(
 
     print(f"\n[Facebook Publisher] Publishing to Page ID: {page_id}")
     print(f"  - Title: {title}")
-    print(f"  - Video File: {video_path} ({os.path.getsize(video_path) / (1024*1024):.1f} MB)")
+    print(f"  - Video File: {video_path} ({file_size / (1024*1024):.1f} MB)")
     print(f"  - Access Token: {mask(page_token)}")
 
     upload_url = f"https://graph.facebook.com/v21.0/{page_id}/videos"
+    t0 = time.time()
 
-    data = {
+    # PHASE 1: Start Session
+    print("[Facebook Publisher] Initiating resumable upload session...", flush=True)
+    start_payload = {
+        "upload_phase": "start",
         "access_token": page_token,
-        "title": title[:255],
-        "description": description,
+        "file_size": file_size
     }
+    sr = requests.post(upload_url, data=start_payload, timeout=45)
+    if sr.status_code != 200:
+        err_msg = sr.text
+        try:
+            err_msg = sr.json().get("error", {}).get("message", err_msg)
+        except Exception:
+            pass
+        raise RuntimeError(f"Facebook Graph API Start Session Error ({sr.status_code}): {err_msg}")
 
-    files = {}
-    video_fp = open(video_path, "rb")
-    files["source"] = (os.path.basename(video_path), video_fp, "video/mp4")
+    sdata = sr.json()
+    upload_session_id = sdata.get("upload_session_id")
+    video_id = sdata.get("video_id")
+    start_offset = int(sdata.get("start_offset", 0))
+    end_offset = int(sdata.get("end_offset", min(file_size, start_offset + default_chunk_size)))
 
+    print(f"  - Session ID: {upload_session_id}")
+    print(f"  - Video ID: {video_id}")
+
+    # PHASE 2: Transfer Chunks
+    print(f"[Facebook Publisher] Uploading chunks ({file_size / (1024*1024):.1f} MB total)...", flush=True)
+    with open(video_path, "rb") as vf:
+        while start_offset < file_size:
+            chunk_len = end_offset - start_offset
+            if chunk_len <= 0:
+                chunk_len = min(default_chunk_size, file_size - start_offset)
+            vf.seek(start_offset)
+            chunk_bytes = vf.read(chunk_len)
+            if not chunk_bytes:
+                break
+
+            transfer_payload = {
+                "upload_phase": "transfer",
+                "access_token": page_token,
+                "upload_session_id": upload_session_id,
+                "start_offset": str(start_offset)
+            }
+            transfer_files = {
+                "video_file_chunk": (os.path.basename(video_path), chunk_bytes, "application/octet-stream")
+            }
+
+            chunk_success = False
+            for attempt in range(1, 4):
+                try:
+                    tr = requests.post(upload_url, data=transfer_payload, files=transfer_files, timeout=120)
+                    if tr.status_code == 200:
+                        tdata = tr.json()
+                        new_start = int(tdata.get("start_offset", start_offset + len(chunk_bytes)))
+                        new_end = int(tdata.get("end_offset", min(file_size, new_start + default_chunk_size)))
+                        start_offset = new_start
+                        end_offset = new_end
+                        pct = min(100, int((start_offset / file_size) * 100))
+                        print(f"  Facebook upload progress: {pct}% ({start_offset / (1024*1024):.1f}/{file_size / (1024*1024):.1f} MB)", flush=True)
+                        chunk_success = True
+                        break
+                    else:
+                        print(f"  Warning: Chunk upload attempt {attempt} returned {tr.status_code}: {tr.text[:200]}")
+                        time.sleep(3 * attempt)
+                except Exception as ex:
+                    print(f"  Warning: Chunk upload attempt {attempt} failed: {ex}")
+                    time.sleep(3 * attempt)
+
+            if not chunk_success:
+                raise RuntimeError(f"Failed to transfer chunk at offset {start_offset} after 3 attempts.")
+
+    # PHASE 3: Finish Session & Set Metadata
+    print("[Facebook Publisher] Finalizing video upload & attaching metadata...", flush=True)
+    finish_payload = {
+        "upload_phase": "finish",
+        "access_token": page_token,
+        "upload_session_id": upload_session_id,
+        "title": title[:255],
+        "description": description
+    }
+    finish_files = {}
     thumb_fp = None
     if thumb_path and os.path.exists(thumb_path):
         print(f"  - Attaching Thumbnail: {thumb_path}")
         thumb_fp = open(thumb_path, "rb")
-        files["thumb"] = (os.path.basename(thumb_path), thumb_fp, "image/jpeg")
+        finish_files["thumb"] = (os.path.basename(thumb_path), thumb_fp, "image/jpeg")
 
-    t0 = time.time()
     try:
-        print("[Facebook Publisher] Uploading video to Facebook Graph API...", flush=True)
-        response = requests.post(upload_url, data=data, files=files, timeout=300)
-        elapsed = time.time() - t0
-
-        if response.status_code != 200:
-            err_msg = response.text
+        fr = requests.post(upload_url, data=finish_payload, files=finish_files, timeout=90)
+        if fr.status_code != 200:
+            err_msg = fr.text
             try:
-                err_json = response.json().get("error", {})
-                err_msg = err_json.get("message", err_msg)
+                err_msg = fr.json().get("error", {}).get("message", err_msg)
             except Exception:
                 pass
-            raise RuntimeError(f"Facebook Graph API Error ({response.status_code}): {err_msg}")
+            raise RuntimeError(f"Facebook Graph API Finish Session Error ({fr.status_code}): {err_msg}")
 
-        res_data = response.json()
-        video_id = res_data.get("id")
-        fb_url = f"https://www.facebook.com/{page_id}/videos/{video_id}"
-
-        print(f"[Facebook Publisher] SUCCESS! Video published in {elapsed:.1f}s.")
-        print(f"  - Video ID: {video_id}")
-        print(f"  - Facebook Video URL: {fb_url}")
-
-        return {
-            "id": video_id,
-            "url": fb_url,
-            "page_id": page_id
-        }
-
+        fdata = fr.json()
+        final_video_id = fdata.get("id") or video_id
     finally:
-        video_fp.close()
         if thumb_fp:
             thumb_fp.close()
+
+    # Explicitly set preferred thumbnail if provided
+    if thumb_path and os.path.exists(thumb_path) and final_video_id:
+        try:
+            with open(thumb_path, "rb") as tf:
+                t_resp = requests.post(
+                    f"https://graph.facebook.com/v21.0/{final_video_id}/thumbnails",
+                    data={"access_token": page_token, "is_preferred": "true"},
+                    files={"source": (os.path.basename(thumb_path), tf, "image/jpeg")},
+                    timeout=30
+                )
+                if t_resp.status_code == 200:
+                    print(f"  - Thumbnail set as preferred successfully on video {final_video_id}.")
+        except Exception as te:
+            print(f"  - Note: Preferred thumbnail endpoint notice: {te}")
+
+    elapsed = time.time() - t0
+    fb_url = f"https://www.facebook.com/{page_id}/videos/{final_video_id}"
+    print(f"[Facebook Publisher] SUCCESS! Video published to Facebook Page in {elapsed:.1f}s.")
+    print(f"  - Video ID: {final_video_id}")
+    print(f"  - Facebook Video URL: {fb_url}")
+
+    return {
+        "id": final_video_id,
+        "url": fb_url,
+        "page_id": page_id
+    }
 
 
 if __name__ == "__main__":

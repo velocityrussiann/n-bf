@@ -8,6 +8,7 @@ Features:
 """
 import os
 import sys
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 from google.oauth2.credentials import Credentials
@@ -124,32 +125,36 @@ def get_or_create_playlist(youtube, title=DEFAULT_PLAYLIST_TITLE, description=DE
         return None
 
 
-def add_video_to_playlist(youtube, playlist_id, video_id):
-    """Adds an uploaded video into the specified playlist."""
+def add_video_to_playlist(youtube, playlist_id, video_id, max_retries=3):
+    """Adds an uploaded video into the specified playlist with retries."""
     if not playlist_id or not video_id:
         return None
 
-    try:
-        print(f"[YouTube Playlist] Adding video {video_id} to playlist {playlist_id}...")
-        body = {
-            "snippet": {
-                "playlistId": playlist_id,
-                "resourceId": {
-                    "kind": "youtube#video",
-                    "videoId": video_id
+    for attempt in range(1, max_retries + 1):
+        try:
+            print(f"[YouTube Playlist] Adding video {video_id} to playlist {playlist_id} (attempt {attempt}/{max_retries})...")
+            body = {
+                "snippet": {
+                    "playlistId": playlist_id,
+                    "resourceId": {
+                        "kind": "youtube#video",
+                        "videoId": video_id
+                    }
                 }
             }
-        }
-        req = youtube.playlistItems().insert(
-            part="snippet",
-            body=body
-        )
-        res = req.execute()
-        print(f"[YouTube Playlist] Video added to playlist! Item ID: {res.get('id')}")
-        return res
-    except Exception as e:
-        print(f"[YouTube Playlist] Warning: Failed to add video to playlist: {e}")
-        return None
+            req = youtube.playlistItems().insert(
+                part="snippet",
+                body=body
+            )
+            res = req.execute()
+            print(f"[YouTube Playlist] Video added to playlist! Item ID: {res.get('id')}")
+            return res
+        except Exception as e:
+            print(f"[YouTube Playlist] Warning: Failed to add video to playlist on attempt {attempt}: {e}")
+            if attempt < max_retries:
+                time.sleep(3 * attempt)
+
+    return None
 
 
 def upload_to_youtube(video_path, title, description, tags=None, category_id='10', thumbnail_path=None):
