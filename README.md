@@ -25,7 +25,7 @@ Every video and thumbnail is rendered in standard **1080P Full HD (1920x1080)** 
 |     |   FACTORY   |                   = # # # # # # # # # # # # =           |
 |     +-------------+                   = # # # # # # # # # # # # =           |
 |                                        * = # # # # # # # # # = *            |
-|  NOW PLAYING: INFINITY (NEW MIX)        : * = # # # # # # = * :             |
+|                                         : * = # # # # # # = * :             |
 |                                            . : * = # # = * : .              |
 |                                                                             |
 +-----------------------------------------------------------------------------+
@@ -37,7 +37,7 @@ Every video and thumbnail is rendered in standard **1080P Full HD (1920x1080)** 
    - Centered vertically at `X ~ 22%`, `Y ~ 48.5%`.
    - Sharp, solid white geometric typography featuring the distinctive sliced `N`, bold rounded `B`, and cut `F`.
    - Pill card with `NEON BEATS FACTORY` and smooth drop-shadow.
-   - Clean song title card (`NOW PLAYING: <SONG NAME>`) positioned directly below the logo.
+   - Clean, uncluttered design with zero extraneous text on canvas for a pure, professional brand presence.
 3. **Audio-Reactive 3D Core Visualizer (Right Side)**:
    - Positioned at `X ~ 74.1%`, `Y ~ 48.5%` with a base diameter of `688px`.
    - Real-time STFT sub-bass analysis (25 Hz - 130 Hz) powering **BeatPulse**: drum kicks trigger dynamic mesh diameter expansion up to +18% with neon flash bloom.

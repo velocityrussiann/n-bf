@@ -113,11 +113,10 @@ def apply_darkening_mask(bg_bgr, darken_factor=0.50, vignette_intensity=0.25):
     return darkened
 
 
-def overlay_nbf_branding(cv2_img, logo_path=None, target_logo_width=480, song_title=None):
+def overlay_nbf_branding(cv2_img, logo_path=None, target_logo_width=480, **kwargs):
     """
     Overlays the official NBF (NEON BEATS FACTORY) branding on the left side
     centered vertically, matching the brand guidelines.
-    Optionally renders the song title card underneath the logo.
     """
     H, W = cv2_img.shape[:2]
 
@@ -170,51 +169,6 @@ def overlay_nbf_branding(cv2_img, logo_path=None, target_logo_width=480, song_ti
 
     overlay = Image.alpha_composite(overlay, shadow)
     overlay.paste(pil_logo, (lx, ly), pil_logo)
-
-    # Render Clean Song Title below the logo if requested
-    if song_title:
-        clean_title = re.sub(r'^\s*\d+[\s\.\-_]+', '', song_title).strip()
-        clean_title = clean_title.replace('_', ' ').replace(' - ', ' ').strip()
-        clean_title = ' '.join(w.capitalize() for w in clean_title.split())
-
-        font_dirs = [
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts"),
-            os.path.join("fonts"),
-            "C:\\Windows\\Fonts",
-        ]
-        title_font = None
-        font_size = max(24, int(34 * (H / 1080.0)))
-        for d in font_dirs:
-            tf_path = os.path.join(d, "Outfit-Bold.ttf")
-            mf_path = os.path.join(d, "Montserrat-Bold.ttf")
-            for fp in [tf_path, mf_path]:
-                if os.path.exists(fp):
-                    try:
-                        title_font = ImageFont.truetype(fp, font_size)
-                        break
-                    except Exception:
-                        pass
-            if title_font:
-                break
-
-        if title_font is None:
-            title_font = ImageFont.load_default()
-
-        # Format title card text
-        title_text = f"NOW PLAYING: {clean_title.upper()}"
-        t_bbox = title_font.getbbox(title_text)
-        t_w = t_bbox[2] - t_bbox[0]
-        t_h = t_bbox[3] - t_bbox[1]
-
-        # Center title under the logo
-        tx = lx + (scaled_w - t_w) // 2
-        ty = ly + scaled_h + int(24 * (H / 1080.0))
-
-        # Soft glow / shadow for title
-        t_draw = ImageDraw.Draw(overlay)
-        for dx, dy in [(-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (0, 3)]:
-            t_draw.text((tx + dx, ty + dy), title_text, font=title_font, fill=(0, 0, 0, 200))
-        t_draw.text((tx, ty), title_text, font=title_font, fill=(245, 245, 245, 240))
 
     pil_canvas = Image.alpha_composite(pil_canvas.convert('RGBA'), overlay)
     return cv2.cvtColor(np.array(pil_canvas), cv2.COLOR_RGBA2BGR)
@@ -351,7 +305,7 @@ def generate_nbf_video(
     bg = apply_darkening_mask(bg, darken_factor=darken_factor, vignette_intensity=0.25)
 
     # 4. Overlay NBF Branding on the left side
-    bg = overlay_nbf_branding(bg, song_title=song_title)
+    bg = overlay_nbf_branding(bg)
 
     # 5. Load Visualizer Core Frames from .viz file
     template_frames = load_viz_core(viz_path, color_bgr=color_bgr)
