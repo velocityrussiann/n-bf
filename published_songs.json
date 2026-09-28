@@ -22,5 +22,33 @@
             "facebook_uploaded": false,
             "facebook_result": null
         }
+    },
+    {
+        "song_name": "004 - Run Until the Sunrise.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Run Until The Sunrise \u2014 Bass Boosted Club Hits",
+            "description": "\ud83d\udd25 Lace up for \u201cRun Until The Sunrise\u201d from Neon Beats Factory (NBF) \u2014 a high-energy EDM anthem built for late-night legs, neon streets, and peak-time euphoria. This one hits with relentless momentum, crowd-ready drops, and a vibe that refuses to slow down.\n\n\ud83c\udf9b\ufe0f Expect razor-sharp synths, punchy low-end, and club-tight rhythm that keeps escalating every beat. Don\u2019t miss the 60 FPS visualizer experience\u2014watch the spectrum light up in real time as the track drives toward a sunrise-level finale.\n\n\u23f1\ufe0f Track Chapters: 0:00 Intro, 0:28 Drop 1, 1:06 Vocal/Theme, 1:42 Drop 2, 2:22 Breakdown, 2:55 Final Drop, 3:26 Outro. \ud83d\udcfa Specs: 1080p \u2022 60fps \u2022 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 2,
+            "visualizer_color": {
+                "label": "artwork_complementary",
+                "bgr": [
+                    10,
+                    132,
+                    255
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "XSx7KJgtyRU",
+                "url": "https://youtube.com/watch?v=XSx7KJgtyRU",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1397791415665812",
+                "url": "https://www.facebook.com/538586562680121/videos/1397791415665812",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
