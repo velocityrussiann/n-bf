@@ -134,5 +134,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "008 - When We Were Strangers.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 When We Were Strangers | Bass Boosted Slap House Festival Drop",
+            "description": "Catch the nostalgia, ignite the night\u2014\u201cWhen We Were Strangers\u201d by Neon Beats Factory (NBF) is a neon-lit rush of feel-good energy and dancefloor emotion. One listen and you\u2019ll be singing along while the beat pulls you straight into the crowd.\n\nFrom razor-sharp claps to glossy synth hooks, this track delivers a modern, club-ready sound with heavy groove and crowd-moving dynamics. Watch it come alive with the 60 FPS visualizer\u2014every kick, every glow, every drop hits in perfect time.\n\nTrack Chapters: 0:00 Intro | 0:22 Drop 1 | 1:02 Break | 1:28 Drop 2 | 2:08 Final Build | 2:40 Outro. Video Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 6,
+            "visualizer_color": {
+                "label": "emerald_mint",
+                "bgr": [
+                    140,
+                    255,
+                    30
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "plL-NdXifcY",
+                "url": "https://youtube.com/watch?v=plL-NdXifcY",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1454095979970746",
+                "url": "https://www.facebook.com/538586562680121/videos/1454095979970746",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
