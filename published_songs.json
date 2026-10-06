@@ -246,5 +246,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "012 - Gravity.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Gravity (Bass Boosted Festival Drop)",
+            "description": "Hold tight\u2014\u201cGravity\u201d by Neon Beats Factory (NBF) hits like a neon comet: relentless energy, floor-ready grooves, and a hook that pulls you in from the first drop. If you live for big club moments and festival-level hype, this one\u2019s built for your headphones and the dancefloor.\n\nPowered by razor-clean synth leads, heavy sub pressure, and punchy rhythmic details, \u201cGravity\u201d delivers a sound design that keeps evolving track after track. Watch it come alive with our 60 FPS visualizer\u2014smooth, bright, and synced to every beat for maximum immersion.\n\nChapters: 00:00 Intro \u2022 00:22 Build \u2022 00:45 Drop 1 \u2022 01:18 Drop 2 \u2022 01:52 Breakdown \u2022 02:15 Final Drop \u2022 02:48 Outro. Stream/Listen in 1080p 60fps with 320kbps audio. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 10,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    51,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "nyvQWRKozG0",
+                "url": "https://youtube.com/watch?v=nyvQWRKozG0",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1474389741263828",
+                "url": "https://www.facebook.com/538586562680121/videos/1474389741263828",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
