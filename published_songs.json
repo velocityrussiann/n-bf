@@ -302,5 +302,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "014 - Falling Into the Weekend.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 \u201cFalling Into The Weekend\u201d Bass Boosted Club Hits",
+            "description": "Turn the lights down and the bass up\u2014\u201cFalling Into The Weekend\u201d by Neon Beats Factory (NBF) is a high-energy EDM rush built for late nights, rooftop sunsets, and instant party mode. If you love big hooks, driving grooves, and that instant \u201clet\u2019s go!\u201d feeling, this one\u2019s for you.\n\nCrisp sound design meets club-ready low end: punchy drums, shimmering synths, and a drop that hits like a weekend promise. Watch it like a visual tour of the beat with our 60 FPS visualizer\u2014smooth, vibrant, and synced for maximum impact.\n\nTrack chapters: 00:00 Intro \u2022 00:27 Drop 1 \u2022 01:05 Breakdown \u2022 01:42 Drop 2 \u2022 02:20 Outro. Quality: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 12,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    51,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "Vwp3PnrV-FY",
+                "url": "https://youtube.com/watch?v=Vwp3PnrV-FY",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1620005709673054",
+                "url": "https://www.facebook.com/538586562680121/videos/1620005709673054",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
