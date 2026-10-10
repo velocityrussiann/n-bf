@@ -358,5 +358,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "016 - We Were Here.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2022 We Were Here \u2014 Bass Boosted Festival Drop",
+            "description": "Turn the lights up\u2014\"We Were Here\" by Neon Beats Factory (NBF) is a high-energy EDM anthem built for late-night roads, packed venues, and maximum sing-along moments. Expect big hooks, driving rhythm, and a drop that hits like a flashbang in the dark.\n\nBuilt with razor-clean sound design and heavy-impact low-end, \"We Were Here\" delivers punchy bass, crisp percussion, and sparkling synth movement that never lets up. Watch it come alive on the 60 FPS visualizer\u2014smooth, vibrant, and synced to every beat for that full club-to-screen experience.\n\nTrack Chapters: 00:00 Intro \u2022 00:34 Build \u2022 01:04 Festival Drop \u2022 01:40 Groove Switch \u2022 02:10 Final Drop \u2022 02:45 Outro. Video Specs: 1080p @ 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 14,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    214,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "cyaKi5xvf20",
+                "url": "https://youtube.com/watch?v=cyaKi5xvf20",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1668298034890180",
+                "url": "https://www.facebook.com/538586562680121/videos/1668298034890180",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
