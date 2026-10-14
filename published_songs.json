@@ -470,5 +470,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "020 - One More Night Alive.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Slap House Club Hits: One More Night Alive",
+            "description": "Turn it up\u2014\"One More Night Alive\" by Neon Beats Factory (NBF) is pure late-night energy built for crowds, neon streets, and nonstop momentum. Expect big hooks, tight rhythms, and a festival-ready vibe that keeps you shouting \u201cone more night!\u201d \n\nFrom crisp percussion to punchy bass and razor-bright synth stabs, this track is engineered to hit hard in every drop. Watch the full 60 FPS visualizer experience\u2014smooth, vivid, and synced to the beat so every build-up and breakdown feels alive.\n\nChapters: 0:00 Intro \u2022 0:22 Drop 1 \u2022 1:02 Breakdown \u2022 1:26 Drop 2 \u2022 2:05 Final Hook \u2022 2:34 Outro. Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 18,
+            "visualizer_color": {
+                "label": "emerald_mint",
+                "bgr": [
+                    140,
+                    255,
+                    30
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "tSpf5W6VWyA",
+                "url": "https://youtube.com/watch?v=tSpf5W6VWyA",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "28660616396910234",
+                "url": "https://www.facebook.com/538586562680121/videos/28660616396910234",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
