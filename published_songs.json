@@ -526,5 +526,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "022 - Lights Fade Slowly.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Lights Fade Slowly (Bass Boosted) Festival Drop",
+            "description": "Turn the lights down and the energy up\u2014\u201cLights Fade Slowly\u201d by Neon Beats Factory (NBF) is a hypnotic EDM ride built for big rooms, late-night drives, and festival season highs. Expect pulse-rising drops, euphoric momentum, and that unforgettable \u201cone more track\u201d feeling.\n\nFrom crisp synth leads to thunderous low-end, this release is engineered to hit clean and loud. Watch it come alive with our 60 FPS visualizer\u2014smooth, neon-saturated motion that syncs perfectly to every kick, clap, and build.\n\nChapters: 00:00 Intro Glow \u2022 00:28 Build \u2022 01:05 Main Drop \u2022 01:42 Break \u2022 02:10 Final Drop \u2022 02:46 Outro Fade. Video specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 20,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    132,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "5yCkgIc0YGQ",
+                "url": "https://youtube.com/watch?v=5yCkgIc0YGQ",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1133389319212290",
+                "url": "https://www.facebook.com/538586562680121/videos/1133389319212290",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
