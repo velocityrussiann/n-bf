@@ -722,5 +722,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "029 - Neon on the Water.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Neon On The Water \u2014 Bass Boosted Festival Drop",
+            "description": "Dive into \u201cNeon On The Water\u201d from Neon Beats Factory (NBF) \u2014 a high-energy EDM ride built for late-night streets, open-air stages, and full-volume headphones. Expect shimmering synths, rolling grooves, and a drop that hits like neon lightning across the tide.\n\nFrom sub-bass power to crisp, water-splash textures, every moment is tuned for maximum impact. Watch the 60 FPS visualizer bring the waveform to life with ultra-smooth motion, synchronized color pulses, and club-ready energy from start to finish.\n\nTrack Chapters: 00:00 Intro \u2022 01:05 Build \u2022 02:00 Main Drop \u2022 03:10 Break \u2022 04:00 Final Drop \u2022 05:05 Outro. Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 27,
+            "visualizer_color": {
+                "label": "toxic_lime",
+                "bgr": [
+                    30,
+                    255,
+                    60
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "pD-eZN48soI",
+                "url": "https://youtube.com/watch?v=pD-eZN48soI",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "2598925067202829",
+                "url": "https://www.facebook.com/538586562680121/videos/2598925067202829",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
