@@ -750,5 +750,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "030 - Heartbeat After Midnight.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Heartbeat After Midnight | Bass Boosted Club Hits",
+            "description": "Feel the night ignite with \u201cHeartbeat After Midnight\u201d by Neon Beats Factory (NBF)\u2014a high-energy EDM rush built for late sessions, neon streets, and festival-level momentum. Expect punchy drops, driving rhythm, and an instant hook that keeps your crowd moving past midnight.\n\nDesigned for maximum impact, this track brings tight kick drums, shimmering synth leads, and bass that hits like a heartbeat in the dark. Watch the release come alive with a 60 FPS visualizer that syncs to every wobble, strobe, and build\u2014perfect for headphones, car rides, and club speakers.\n\nChapters: 00:00 Intro \u2022 00:23 Build \u2022 00:46 Festival Drop \u2022 01:22 Break \u2022 01:48 Final Drop. Video specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 28,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    132,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "tmV90Xxb0TY",
+                "url": "https://youtube.com/watch?v=tmV90Xxb0TY",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1830784771261451",
+                "url": "https://www.facebook.com/538586562680121/videos/1830784771261451",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
