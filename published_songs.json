@@ -918,5 +918,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "036 - The Space Between Us.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 The Space Between Us | Bass Boosted Festival Drop",
+            "description": "Feel the lift between galaxies\u2014\"The Space Between Us\" is a neon-charged EDM anthem built for late-night drives, festival surges, and peak-hour floors. Turn it up, lock in the groove, and let the drop pull you through the stars.\n\nCrisp synths, heavyweight bass, and razor-sharp percussion collide with a cinematic 60 FPS visualizer that syncs to every build and impact. This is where sound design meets motion\u2014made to hit harder on big speakers and turn your feed into a light show.\n\n\u25b6 Track Chapters: 0:00 Intro \u2022 0:28 Drop 1 \u2022 1:05 Vocal/Theme Lift \u2022 1:38 Drop 2 \u2022 2:22 Final Peak \u2022 3:10 Outro\nQuality Specs: 1080p 60fps, 320kbps. \n#EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 34,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    132,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "pmfZhw1i-T8",
+                "url": "https://youtube.com/watch?v=pmfZhw1i-T8",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1487671196615111",
+                "url": "https://www.facebook.com/538586562680121/videos/1487671196615111",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
