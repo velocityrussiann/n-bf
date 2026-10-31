@@ -946,5 +946,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "037 - Where the Music Takes Us.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Bass Boosted Festival Drop: \u201cWhere The Music Takes Us\u201d",
+            "description": "Turn it up\u2014\u201cWhere The Music Takes Us\u201d by Neon Beats Factory (NBF) is a high-energy EDM ride built for neon nights, festival crowds, and full-throttle dance floors. Expect nonstop momentum, hooky melodies, and a drop that hits like a flash of lightning in the dark.\n\nFrom razor-tight drums to shimmering synth layers, this track is packed with punchy sound design that evolves every few seconds. Watch the 60 FPS visualizer bring the spectrum to life\u2014every beat, every wobble, every bass slam synced for maximum replay value.\n\nChapters: 00:00 Intro Glow | 00:28 Build Up | 01:02 Main Drop | 01:46 Breakdown | 02:10 Final Drop. Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 35,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    10,
+                    132,
+                    255
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "kC_5GLRO-eY",
+                "url": "https://youtube.com/watch?v=kC_5GLRO-eY",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "2023866538303655",
+                "url": "https://www.facebook.com/538586562680121/videos/2023866538303655",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
