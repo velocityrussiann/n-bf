@@ -1002,5 +1002,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "039 - The Night We Didn't Go Home.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Bass Boosted: \u201cThe Night We Didn\u2019t Go Home\u201d Club Hits",
+            "description": "Feel that midnight electricity\u2014\u201cThe Night We Didn\u2019t Go Home\u201d hits like a neon flash, turning every room into a full-throttle dance floor. From the first pulse to the final drop, this track is built for late-night memories, festival rush, and nonstop energy.\n\nCrisp drums, razor-tight bass, and glossy synth textures\u2014every element is crafted to hit hard and stay catchy. Don\u2019t miss the 60 FPS visualizer that syncs to the groove, making the beat look as explosive as it sounds.\n\n\u23f1\ufe0f Track Chapters: 00:00 Intro \u2022 01:05 Build \u2022 02:00 Main Drop \u2022 03:10 Break \u2022 04:05 Final Drop \u2022 05:00 Outro. Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 37,
+            "visualizer_color": {
+                "label": "magenta",
+                "bgr": [
+                    255,
+                    60,
+                    220
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "dc2_elQtB_0",
+                "url": "https://youtube.com/watch?v=dc2_elQtB_0",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1096119193417023",
+                "url": "https://www.facebook.com/538586562680121/videos/1096119193417023",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
