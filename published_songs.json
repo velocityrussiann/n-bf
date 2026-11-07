@@ -1142,5 +1142,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "044 - Nothing Left to Prove.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Nothing Left To Prove | Bass Boosted Festival Drop",
+            "description": "Neon Beats Factory (NBF) is back with \u201cNothing Left To Prove\u201d \u2014 a high-energy EDM anthem built for peak-time lights, big-room energy, and instant head-nods. This track hits hard, lifts higher, and keeps the momentum locked from the first drop to the final outro.\n\nDesigned for serious sound lovers: razor-tight drums, ripping synth hooks, and bass that feels like a club vibration. Watch it come alive with the official 60 FPS visualizer\u2014every beat synced, every glow timed, every moment made to stream and share.\n\nChapters: 0:00 Intro \u2022 0:28 Drop 1 \u2022 1:12 Vocal Hook \u2022 1:48 Drop 2 \u2022 2:32 Breakdown \u2022 2:55 Final Drop. Video specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 42,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    51,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "ZO1UEi-vhRE",
+                "url": "https://youtube.com/watch?v=ZO1UEi-vhRE",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1435167651596869",
+                "url": "https://www.facebook.com/538586562680121/videos/1435167651596869",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
