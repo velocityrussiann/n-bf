@@ -1198,5 +1198,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "046 - Before the Morning Finds Us.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Slap House Festival Drop \u2014 \u201cBefore The Morning Finds Us\u201d",
+            "description": "\u201cBefore The Morning Finds Us\u201d from Neon Beats Factory (NBF) is a midnight-chasing Slap House anthem built for late-night streets, packed clubs, and sunrise chaos. Turn it up\u2014this one\u2019s pure momentum from the first hit to the final drop.\n\nFeel every detail: tight punchy bass, crisp percussion, and shimmering synth hooks designed to cut through any mix. Watch the 60 FPS visualizer and sync your eyes with the groove\u2014glow effects and rhythmic motion that hits like the beat.\n\nTrack Chapters:\n00:00 Intro\n00:18 Groove Build\n00:45 Main Drop\n01:25 Vocal / Hook Moment\n02:03 Final Drop\n02:40 Outro\nSpecs: 1080p 60fps \u2022 320kbps. \n#EDM #NeonBeatsFactory #DanceMusic #ClubHits #SlapHouse #FestivalDrop",
+            "song_index": 44,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    10,
+                    132
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "au-2-24F5_8",
+                "url": "https://youtube.com/watch?v=au-2-24F5_8",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1185077520752244",
+                "url": "https://www.facebook.com/538586562680121/videos/1185077520752244",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
