@@ -1282,5 +1282,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "049 - Closer Than We Were.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Closer Than We Were | Bass Boosted Club Hits",
+            "description": "Get closer to the drop with \u201cCloser Than We Were\u201d by Neon Beats Factory (NBF)! This track is pure late-night energy\u2014pounding drums, euphoric synths, and a hook that pulls you straight onto the dancefloor. Press play and let the atmosphere hit harder than ever.\n\nBuilt for maximum impact, \u201cCloser Than We Were\u201d brings punchy low-end, crisp percussion, and glowing melodic layers designed to shine on every system. Watch the full 60 FPS visualizer and feel the rhythm lock in as the visuals sync to the beat\u2014clean, smooth, and made to replay.\n\n\ud83c\udfa7 Track Chapters: 0:00 Intro \u2022 0:18 Build \u2022 0:40 Festival Drop \u2022 1:12 Breakdown \u2022 1:35 Final Drop \u2022 2:05 Outro\n\u2705 Specs: 1080p 60fps \u2022 320kbps\n#EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 47,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    132,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "U_1dljqTCDQ",
+                "url": "https://youtube.com/watch?v=U_1dljqTCDQ",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1147185237783589",
+                "url": "https://www.facebook.com/538586562680121/videos/1147185237783589",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
