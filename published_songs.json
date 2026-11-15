@@ -1338,5 +1338,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "051 - Dancing on the Edge of Tomorrow.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) Slap House Festival Drop: Dancing On The Edge Of Tomorrow",
+            "description": "Feel the future-fueled rush with \u201cDancing On The Edge Of Tomorrow\u201d by Neon Beats Factory (NBF)\u2014a high-energy EDM ride built for late-night streets, festival lights, and dancefloor momentum. Expect big hooks, relentless drive, and that instant \u201cone more track\u201d feeling the moment the beat hits.\n\nThis release is engineered for impact: razor-sharp drums, neon-bright synth melodies, and bass that hits with clean pressure. Watch the full 60 FPS visualizer, where every drop syncs to the sound design\u2014turning headphones into a full club experience.\n\nChapters: 0:00 Intro \u2022 0:22 Main Drop \u2022 1:03 Remix Switch \u2022 1:36 Final Drop \u2022 2:14 Outro. Specs: 1080p @ 60fps \u2022 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits #SlapHouse #DancingOnTheEdgeOfTomorrow",
+            "song_index": 49,
+            "visualizer_color": {
+                "label": "toxic_lime",
+                "bgr": [
+                    30,
+                    255,
+                    60
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "lSPb446u6ag",
+                "url": "https://youtube.com/watch?v=lSPb446u6ag",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "2684023858725770",
+                "url": "https://www.facebook.com/538586562680121/videos/2684023858725770",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
