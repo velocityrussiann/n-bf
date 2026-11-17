@@ -1394,5 +1394,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "053 - We Were Never Meant to Stay.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 Festival Drop: \u201cWe Were Never Meant To Stay\u201d",
+            "description": "Turn the volume up\u2014\u201cWe Were Never Meant To Stay\u201d from Neon Beats Factory (NBF) is pure high-voltage EDM energy made for late-night drives, packed dancefloors, and instant replay. Expect euphoric momentum, powerful builds, and a hook that hits like a lightning strike.\n\nThis track is crafted with razor-sharp sound design: punchy kicks, bright melodic layers, and bass that feels like a heartbeat in your chest. Don\u2019t miss the 60 FPS visualizer\u2014watch the visuals lock in with every drop, riser, and beat for full adrenaline mode.\n\n\u23f1\ufe0f Track Chapters: 0:00 Intro \u2022 1:02 Build \u2022 2:00 Main Drop \u2022 3:18 Breakdown \u2022 4:05 Final Drop \u2022 5:10 Outro. \ud83d\udcfa Specs: 1080p 60fps, 320kbps audio. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 51,
+            "visualizer_color": {
+                "label": "emerald_mint",
+                "bgr": [
+                    140,
+                    255,
+                    30
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "oJS9gte_SZE",
+                "url": "https://youtube.com/watch?v=oJS9gte_SZE",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1700880668265220",
+                "url": "https://www.facebook.com/538586562680121/videos/1700880668265220",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
