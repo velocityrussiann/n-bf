@@ -1478,5 +1478,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "056 - Gravity Between Us.mp3",
+        "metadata": {
+            "title": "Gravity Between Us (NBF) \u2014 Festival Drop Bass Boosted | Neon Beats Factory (NBF)",
+            "description": "Feel the pull\u2014\u201cGravity Between Us\u201d by Neon Beats Factory (NBF) is a high-energy EDM ride built for late-night lights, big rooms, and instant sing-along hooks. Let the drop hit like gravity, and turn every moment into a mainstage moment.\n\nFrom punchy kick drums to shimmering synth swells, the sound design is engineered for maximum impact and maximum replay. Watch the official 60 FPS visualizer synced to every bounce, glow, and spectral twist\u2014crafted to keep your eyes racing with the beat.\n\nTrack Chapters: 00:00 Intro \u2022 00:28 Build-Up \u2022 01:05 Festival Drop \u2022 01:42 Main Groove \u2022 02:22 Breakdown \u2022 02:55 Final Drop. Available in 1080p 60fps with 320kbps audio. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 54,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    51,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "04AESugCvns",
+                "url": "https://youtube.com/watch?v=04AESugCvns",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1170433538896730",
+                "url": "https://www.facebook.com/538586562680121/videos/1170433538896730",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
