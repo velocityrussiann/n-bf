@@ -1506,5 +1506,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "057 - We Left the Lights On.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 \u201cWe Left The Lights On\u201d Bass Boosted Festival Drop!",
+            "description": "Turn it up\u2014\u201cWe Left The Lights On\u201d by Neon Beats Factory (NBF) is a high-voltage EDM anthem built for night drives, sunrise raves, and pure dancefloor energy. Expect instant hooks, relentless momentum, and that bright, euphoric vibe that keeps the crowd moving.\n\nFrom crisp percussion to razor-tight synth stabs, every beat is engineered for maximum impact. Check out the 60 FPS visualizer for smooth, neon-spark visuals that sync perfectly with the bass, drops, and build-ups\u2014designed to hit like a club system in your headphones.\n\nTrack Chapters: 00:00 Intro \u2022 00:18 Groove Kick \u2022 00:42 Pre-Drop Build \u2022 01:05 Main Drop \u2022 01:38 Break \u2022 02:02 Final Drop \u2022 02:36 Outro. Video Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits",
+            "song_index": 55,
+            "visualizer_color": {
+                "label": "neon_purple",
+                "bgr": [
+                    255,
+                    30,
+                    160
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "brPcX_4PwNE",
+                "url": "https://youtube.com/watch?v=brPcX_4PwNE",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "2325618298224683",
+                "url": "https://www.facebook.com/538586562680121/videos/2325618298224683",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
