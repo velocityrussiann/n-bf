@@ -1562,5 +1562,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "059 - Running Through the Red Lights.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2022 Bass Boosted Festival Drop: Running Through The Red Lights",
+            "description": "Run through the neon panic\u2014\u201cRunning Through The Red Lights\u201d is a pulse-pounding EDM hit built for late-night crowds and festival adrenaline. Expect sharp builds, explosive drops, and an unstoppable energy that keeps you moving from the first kick to the final strobe.\n\nThis track is packed with crisp sound design: punchy low-end, bright synth stabs, and razor-clean percussion that hits like a spotlight on the dancefloor. Watch it come alive with a smooth 60 FPS visualizer\u2014every beat syncs to the visuals for maximum festival-drop vibes.\n\nChapters: 0:00 Intro \u2022 0:18 Drop 1 \u2022 0:52 Break \u2022 1:10 Drop 2 \u2022 1:44 Outro. Specs: 1080p 60fps, 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 57,
+            "visualizer_color": {
+                "label": "amber_gold",
+                "bgr": [
+                    10,
+                    180,
+                    255
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "BXvd7RCmseA",
+                "url": "https://youtube.com/watch?v=BXvd7RCmseA",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1542496637691274",
+                "url": "https://www.facebook.com/538586562680121/videos/1542496637691274",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
