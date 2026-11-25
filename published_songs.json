@@ -1618,5 +1618,33 @@
                 "page_id": "538586562680121"
             }
         }
+    },
+    {
+        "song_name": "061 - After the Rain Comes Gold.mp3",
+        "metadata": {
+            "title": "After The Rain Comes Gold \u2014 Festival Drop by Neon Beats Factory (NBF) | Club Hits",
+            "description": "After The Rain Comes Gold is a neon-charged EDM surge built for late-night lights, festival energy, and instant sing-along momentum. The vibe hits like sunshine after storms\u2014big hooks, driving rhythm, and a euphoric rise that keeps the crowd moving.\n\nFeel every detail: razor-tight drum programming, shimmering synth layers, and bass that punches clean and hard. Don\u2019t miss the 60 FPS visualizer\u2014watch the colors pulse to the beat as the drops turn the atmosphere into pure motion.\n\nTrack chapters: 00:00 Intro, 01:05 Drop 1, 02:12 Break + Uplift, 03:18 Drop 2, 04:25 Final Build + Outro. Watch in 1080p 60fps and enjoy audio at 320kbps. #EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 59,
+            "visualizer_color": {
+                "label": "artwork_dominant",
+                "bgr": [
+                    255,
+                    51,
+                    10
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "Cj0l1FcmJlo",
+                "url": "https://youtube.com/watch?v=Cj0l1FcmJlo",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": true,
+            "facebook_result": {
+                "id": "1181860521068381",
+                "url": "https://www.facebook.com/538586562680121/videos/1181860521068381",
+                "page_id": "538586562680121"
+            }
+        }
     }
 ]
