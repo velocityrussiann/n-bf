@@ -1698,5 +1698,29 @@
             "facebook_uploaded": false,
             "facebook_result": null
         }
+    },
+    {
+        "song_name": "064 - The City Never Knew.mp3",
+        "metadata": {
+            "title": "Neon Beats Factory (NBF) \u2014 The City Never Knew | Bass Boosted Club Hits",
+            "description": "Neon Beats Factory (NBF) brings you \u201cThe City Never Knew\u201d \u2014 a bright, high-energy EDM rush built for late-night streets, packed clubs, and festival flash moments. Feel the momentum hit harder with every drop as neon vibes take over the night.\n\nFrom razor-clean synth stabs to deep, punchy low-end, this track is engineered for maximum impact. Watch the full experience with our 60 FPS visualizer\u2014smooth, sharp, and perfectly synced to the beat for that pure club-to-screen energy.\n\n\ud83c\udfac Track Chapters:\n00:00 Intro Glow\n00:34 Drop Ignition\n01:18 Neon Breakdown\n02:02 Final Festival Drop\n\nSpecs: 1080p \u2022 60fps \u2022 320kbps. \n#EDM #NeonBeatsFactory #DanceMusic #ClubHits #BassBoosted",
+            "song_index": 62,
+            "visualizer_color": {
+                "label": "emerald_mint",
+                "bgr": [
+                    140,
+                    255,
+                    30
+                ]
+            },
+            "youtube_uploaded": true,
+            "youtube_result": {
+                "id": "2lfFBnRgkUE",
+                "url": "https://youtube.com/watch?v=2lfFBnRgkUE",
+                "playlist_id": "PLKVWXLZqqtvM"
+            },
+            "facebook_uploaded": false,
+            "facebook_result": null
+        }
     }
 ]
